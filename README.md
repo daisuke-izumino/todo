@@ -11,16 +11,24 @@ http://localhost/80
 docker起動後
 
 frontのコンテナに入る
+```
 1. sudo docker exec -i -t front bash
+```
 
 コンテナ内で以下のコマンドを実行
+```
 3. npm install axios && npm install vue-axios
+```
 
 コンテナ内で移動
+```
 4. cd todo_app
+```
 
 コンテナ起動
+```
 5. npm run serve
+```
 
 dockerお掃除 
 ```
