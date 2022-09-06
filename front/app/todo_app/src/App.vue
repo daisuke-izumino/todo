@@ -67,9 +67,14 @@ export default {
     },
     deleteTodo: function (index) {
       if (window.confirm("本当に削除しますか")) {
-        return axios.post("task/delete", {
+        let boolean = axios.post("task/delete", {
           task_id: this.info.splice(index, 1)[0].task_id,
         });
+        if (boolean) {
+          window.alert("削除成功しました");
+        } else {
+          window.alert("失敗しました");
+        }
       }
     },
   },
