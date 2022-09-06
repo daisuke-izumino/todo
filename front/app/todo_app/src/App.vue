@@ -6,6 +6,7 @@
     <p>内容</p>
     <textarea v-model="text"></textarea><br />
     <button @click="addTodo()">追加</button>
+    <p>{{ task_id }}</p>
     <table>
       <thead>
         <tr>
@@ -19,7 +20,7 @@
         <td>{{ todo.task_id }}</td>
         <td>{{ todo.title }}</td>
         <td>{{ todo.text }}</td>
-        <td><button @click="deleteTodo(index, task_id)">削除</button></td>
+        <td><button @click="deleteTodo(index)">削除</button></td>
       </tr>
     </table>
   </div>
@@ -46,10 +47,10 @@ export default {
   },
   methods: {
     get_hoge() {
-      return axios.get("test_users");
+      return axios.get("task");
     },
     post_hoge() {
-      return axios.post("test_users", {
+      return axios.post("task", {
         title: this.title,
         text: this.text,
       });
@@ -64,11 +65,11 @@ export default {
         (this.title = ""), (this.text = "");
       }
     },
-    deleteTodo: function (index, task_id) {
+    deleteTodo: function (index) {
       if (window.confirm("本当に削除しますか")) {
-        this.info.splice(index, 1);
-        this.task_id = task_id
-        return axios.delete("test_users", {data: {task_id: this.task_id}})
+        return axios.post("task/delete", {
+          task_id: this.info.splice(index, 1)[0].task_id,
+        });
       }
     },
   },

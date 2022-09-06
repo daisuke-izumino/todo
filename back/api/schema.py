@@ -18,3 +18,6 @@ class TaskResponse(Task):
 class TaskCreate(BaseModel):
     title: str = Field(None, max_length=50)
     text: str = Field(None, max_length=1024)
+
+class TaskDelete(BaseModel):
+    task_id: int = None

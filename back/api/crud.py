@@ -1,9 +1,8 @@
-from typing import List
-from sqlalchemy import func, and_, asc, desc, distinct
+
 from sqlalchemy.sql import case
 from model import TaskTable
 from sqlalchemy.orm import Session
-from schema import TaskResponse, TaskCreate
+from schema import TaskResponse, TaskCreate, TaskDelete
 
 def read_tasks(db: Session):
     task_list = db.query(TaskTable).all()
@@ -38,3 +37,13 @@ def create_task(task_create: TaskCreate, db: Session):
         updated_at=response.updated_at
     )
     return task
+
+def delete_task(task_del: TaskDelete, db: Session):
+    task = (
+        db.query(TaskTable)
+        .filter(TaskTable.task_id == task_del.task_id)
+        .first()
+    )
+    db.delete(task)
+    db.commit()
+    return {"msg": "削除成功しました"}
